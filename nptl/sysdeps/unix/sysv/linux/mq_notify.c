@@ -30,7 +30,7 @@
 #include <sys/socket.h>
 #include <not-cancel.h>
 #include <kernel-features.h>
-
+#include <eglibc/dynconf.h>
 
 #ifdef __NR_mq_notify
 

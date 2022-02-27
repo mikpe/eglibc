@@ -924,6 +924,9 @@ exec_comm (char *comm, char **word, size_t *word_length, size_t *max_length,
 #endif
 
  again:
+  /* It is not safe to use vfork in lieu of fork because the child
+     calls unsetenv to remove "IFS" from the environment.  If we were
+     to use vfork, that would modify the parent's environment.  */
   if ((pid = __fork ()) < 0)
     {
       /* Bad */

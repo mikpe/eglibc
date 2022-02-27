@@ -6,6 +6,7 @@ GLIBC_2.0 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-
  res_querydomain F
  res_search F
 GLIBC_2.0 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls s390-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls
+| GLIBC_2.12 hexagon-.*-linux.*
 | GLIBC_2.2.5 x86_64-.*-linux.*/tls
 | GLIBC_2.2 s390x-.*-linux.*/tls
 | GLIBC_2.3 powerpc64-.*-linux.*/thread
@@ -60,8 +61,10 @@ GLIBC_2.0 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-
  res_send_setqhook F
  res_send_setrhook F
 GLIBC_2.0 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls s390-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls
- __p_class_syms D 0x54
  __p_type_syms D 0x21c
+GLIBC_2.0 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls s390-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls
+| GLIBC_2.12 hexagon-.*-linux.*
+ __p_class_syms D 0x54
  _res_opcodes D 0x40
 GLIBC_2.0 ia64-.*-linux.*/tls
 | GLIBC_2.2.5 x86_64-.*-linux.*/tls
@@ -70,9 +73,37 @@ GLIBC_2.0 ia64-.*-linux.*/tls
  __p_class_syms D 0xa8
  __p_type_syms D 0x438
  _res_opcodes D 0x80
-GLIBC_2.2.5 x86_64-.*-linux.*/tls
- GLIBC_2.2.5 A
-GLIBC_2.2.5 x86_64-.*-linux.*/tls
+GLIBC_2.12 hexagon-.*-linux.*
+ GLIBC_2.12 A
+ __p_type_syms D 0x228
+ ns_datetosecs F
+ ns_format_ttl F
+ ns_get16 F
+ ns_get32 F
+ ns_initparse F
+ ns_makecanon F
+ ns_msg_getflag F
+ ns_name_compress F
+ ns_name_ntol F
+ ns_name_ntop F
+ ns_name_pack F
+ ns_name_pton F
+ ns_name_rollback F
+ ns_name_skip F
+ ns_name_uncompress F
+ ns_name_unpack F
+ ns_parse_ttl F
+ ns_parserr F
+ ns_put16 F
+ ns_put32 F
+ ns_samedomain F
+ ns_samename F
+ ns_skiprr F
+ ns_sprintrr F
+ ns_sprintrrf F
+ ns_subdomain F
+GLIBC_2.12 hexagon-.*-linux.*
+| GLIBC_2.2.5 x86_64-.*-linux.*/tls
 | GLIBC_2.2 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls s390-.*-linux.*/tls s390x-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls
 | GLIBC_2.3 powerpc64-.*-linux.*/thread
  __dn_expand F
@@ -86,10 +117,14 @@ GLIBC_2.2.5 x86_64-.*-linux.*/tls
  __res_query F
  __res_querydomain F
  __res_search F
+GLIBC_2.12 hexagon-.*-linux.*
+| GLIBC_2.3.2 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls powerpc64-.*-linux.*/thread s390-.*-linux.*/tls s390x-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls x86_64-.*-linux.*/tls
+ __p_rcode F
+GLIBC_2.2.5 x86_64-.*-linux.*/tls
+ GLIBC_2.2.5 A
 GLIBC_2.2 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls s390-.*-linux.*/tls s390x-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls
  GLIBC_2.2 A
 GLIBC_2.3.2 i.86-.*-linux.*/notls i.86-.*-linux.*/thread i.86-.*-linux.*/tls ia64-.*-linux.*/tls m68.*-.*-linux.*/notls powerpc-.*-linux.*/notls powerpc-.*-linux.*/thread powerpc-.*-linux.*/tls powerpc64-.*-linux.*/thread s390-.*-linux.*/tls s390x-.*-linux.*/tls sh[34].*-.*-linux.*/notls sh[34].*-.*-linux.*/thread sh[34].*-.*-linux.*/tls x86_64-.*-linux.*/tls
  GLIBC_2.3.2 A
- __p_rcode F
 GLIBC_2.3 powerpc64-.*-linux.*/thread
  GLIBC_2.3 A

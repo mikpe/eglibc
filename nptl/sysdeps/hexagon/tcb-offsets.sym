@@ -1,0 +1,11 @@
+#include <sysdep.h>
+#include <tls.h>
+
+-- pid, tid needed by clone.S, pt-vfork.S
+PID              offsetof (struct pthread, pid)
+TID              offsetof (struct pthread, tid)
+
+-- needed by cancellation points at syscalls.
+MULTIPLE_THREADS offsetof (tcbhead_t, multiple_threads)
+
+POINTER_GUARD    offsetof (tcbhead_t, pointer_guard)

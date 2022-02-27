@@ -636,7 +636,7 @@ handle_fildes_io (void *arg)
 	  gettimeofday (&now, NULL);
 	  wakeup_time.tv_sec = now.tv_sec + optim.aio_idle_time;
 	  wakeup_time.tv_nsec = now.tv_usec * 1000;
-	  if (wakeup_time.tv_nsec > 1000000000)
+	  if (wakeup_time.tv_nsec >= 1000000000)
 	    {
 	      wakeup_time.tv_nsec -= 1000000000;
 	      ++wakeup_time.tv_sec;

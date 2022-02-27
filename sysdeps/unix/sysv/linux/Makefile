@@ -21,6 +21,7 @@ sysdep_routines += sysctl clone llseek umount umount2 readahead \
 		   setfsuid setfsgid makedev epoll_pwait signalfd \
 		   eventfd eventfd_read eventfd_write prlimit
 
+sysdep_routines-$(OPTION_EGLIBC_DYNAMIC_CONF) += dynconf
 
 CFLAGS-gethostid.c = -fexceptions
 CFLAGS-tst-writev.c += "-DARTIFICIAL_LIMIT=0x80000000-__getpagesize()"
@@ -34,6 +35,8 @@ sysdep_headers += sys/mount.h sys/acct.h sys/sysctl.h \
 		  sys/ultrasound.h sys/raw.h sys/personality.h sys/epoll.h \
 		  bits/a.out.h sys/inotify.h sys/signalfd.h sys/eventfd.h \
 		  sys/timerfd.h sys/fanotify.h
+
+sysdep_headers += eglibc/dynconf.h
 
 install-headers-nosubdir: $(inst_includedir)/bits/syscall.h
 

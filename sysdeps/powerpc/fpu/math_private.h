@@ -27,9 +27,13 @@
 
 #include <math/math_private.h>
 
+#ifndef __CPU_HAS_FSQRT
 # if __WORDSIZE == 64 || defined _ARCH_PWR4
 #  define __CPU_HAS_FSQRT 1
+# endif
+#endif
 
+#if defined __CPU_HAS_FSQRT && __CPU_HAS_FSQRT == 1
 #ifndef __ieee754_sqrt
 # define __ieee754_sqrt(x)		\
   ({ double __z;			\

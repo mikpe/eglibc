@@ -28,6 +28,8 @@
 
 #include <kernel-features.h>
 
+#ifndef XSTAT_IS_XSTAT64
+
 #if __ASSUME_STAT64_SYSCALL == 0
 # include <xstatconv.h>
 #endif
@@ -94,4 +96,6 @@ hidden_ver (___xstat64, __xstat64)
 #else
 strong_alias (___xstat64, __xstat64)
 hidden_def (__xstat64)
+#endif
+
 #endif

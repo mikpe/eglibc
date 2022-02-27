@@ -23,8 +23,17 @@
    task which might not be worth it so we play tricks with the
    assembler.  */
 #if !defined __ASSEMBLER__ && !defined in_divdi3_c && !defined NOT_IN_libc && defined SHARED
+/* Perhaps should use declare_symbol_alias_1_alias macro from
+ * libc-symbols.h ? */
+# if HAVE_ASM_SET_DIRECTIVE
+asm (".set __divdi3, __divdi3_internal");
+asm (".set __udivdi3, __udivdi3_internal");
+asm (".set __moddi3, __moddi3_internal");
+asm (".set __umoddi3, __umoddi3_internal");
+# else
 asm ("__divdi3 = __divdi3_internal");
 asm ("__udivdi3 = __udivdi3_internal");
 asm ("__moddi3 = __moddi3_internal");
 asm ("__umoddi3 = __umoddi3_internal");
+# endif
 #endif

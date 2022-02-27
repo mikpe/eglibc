@@ -32,20 +32,45 @@
    the PID when needed.  It is not necessary for the parent thread to
    return.  It might still be in the kernel when the cancellation
    request comes.  Therefore we have to use the clone() calls ability
-   to have the kernel write the PID into the user-level variable.  */
-#if defined __ASSUME_CLONE_THREAD_FLAGS && !defined FORK
-# define FORK() \
-  INLINE_SYSCALL (clone, 3, CLONE_PARENT_SETTID | SIGCHLD, 0, &pid)
+   to have the kernel write the PID into the user-level variable.  
+
+   We must use cleanup_id, instead of the existing pid variable, when
+   using vfork, so that we do not overwrite the parent's pid variable.
+   Otherwise, if the child execs, the parent is cancelled, but vfork
+   has not yet returned in the parent, the pid variable will have the
+   value zero, not the child's PID.  */
+#ifndef FORK
+/* Use vfork so that if running without overcommit we do not make a
+   copy of the parent's memory.  */
+# define FORK_IS_VFORK
+# if defined __ASSUME_CLONE_THREAD_FLAGS	
+#  define USE_CLEANUP_PID
+#  define FORK()						\
+  INLINE_SYSCALL (clone, 3,					\
+                  CLONE_PARENT_SETTID | CLONE_VFORK | SIGCHLD,	\
+                  0, &cleanup_pid)
+# else
+#  define FORK() __vfork()
+# endif
 #endif
 
 #ifdef _LIBC_REENTRANT
 static void cancel_handler (void *arg);
 
-# define CLEANUP_HANDLER \
-  __libc_cleanup_region_start (1, cancel_handler, &pid)
+#ifdef USE_CLEANUP_PID
+# define CLEANUP_HANDLER						\
+  {									\
+    pid_t cleanup_pid;							\
+    __libc_cleanup_region_start (1, cancel_handler, &cleanup_pid)
+#else
+# define CLEANUP_HANDLER					\
+  {								\
+    __libc_cleanup_region_start (1, cancel_handler, &pid)
+#endif
 
-# define CLEANUP_RESET \
-  __libc_cleanup_region_end (0)
+# define CLEANUP_RESET				\
+    __libc_cleanup_region_end (0);		\
+  }
 #endif
 
 

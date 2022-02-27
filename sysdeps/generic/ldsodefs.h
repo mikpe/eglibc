@@ -192,6 +192,10 @@ struct La_ppc32_regs;
 struct La_ppc32_retval;
 struct La_ppc64_regs;
 struct La_ppc64_retval;
+struct La_hexagon_32_regs;
+struct La_hexagon_32_retval;
+struct La_hexagon_64_regs;
+struct La_hexagon_64_retval;
 struct La_sh_regs;
 struct La_sh_retval;
 struct La_alpha_regs;
@@ -238,6 +242,14 @@ struct audit_ifaces
 				      uintptr_t *, struct La_ppc64_regs *,
 				      unsigned int *, const char *name,
 				      long int *framesizep);
+    Elf32_Addr (*hexagon_32_gnu_pltenter) (Elf32_Sym *, unsigned int, uintptr_t *,
+					uintptr_t *, struct La_hexagon_32_regs *,
+					unsigned int *, const char *name,
+					long int *framesizep);
+    Elf64_Addr (*hexagon_64_gnu_pltenter) (Elf64_Sym *, unsigned int, uintptr_t *,
+					uintptr_t *, struct La_hexagon_64_regs *,
+					unsigned int *, const char *name,
+					long int *framesizep);
     uintptr_t (*sh_gnu_pltenter) (Elf32_Sym *, unsigned int, uintptr_t *,
 				  uintptr_t *, const struct La_sh_regs *,
 				  unsigned int *, const char *name,
@@ -290,6 +302,16 @@ struct audit_ifaces
 				       uintptr_t *,
 				       const struct La_ppc64_regs *,
 				       struct La_ppc64_retval *, const char *);
+    unsigned int (*hexagon_32_gnu_pltexit) (Elf32_Sym *, unsigned int,
+					 uintptr_t *, uintptr_t *,
+					 const struct La_hexagon_32_regs *,
+					 struct La_hexagon_32_retval *,
+					 const char *);
+    unsigned int (*hexagon_64_gnu_pltexit) (Elf64_Sym *, unsigned int,
+					 uintptr_t *, uintptr_t *,
+					 const struct La_hexagon_64_regs *,
+					 struct La_hexagon_64_retval *,
+					 const char *);
     unsigned int (*sh_gnu_pltexit) (Elf32_Sym *, unsigned int, uintptr_t *,
 				    uintptr_t *, const struct La_sh_regs *,
 				    struct La_sh_retval *, const char *);

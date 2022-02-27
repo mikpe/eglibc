@@ -38,6 +38,15 @@ static int EXT (INT opt, const CHAR *pattern, const CHAR *string,
      internal_function;
 static const CHAR *END (const CHAR *patternp) internal_function;
 
+/* Hack around gcc bug by setting -O0 as optimization level. 
+ * When this is compiled with -O2, the tls pointer r25 gets clobbered,
+ * resulting in a crash.  See bug 6113 for details.
+ */
+static int
+internal_function
+FCT ()
+__attribute__((optimize("O0")));
+
 static int
 internal_function
 FCT (pattern, string, string_end, no_leading_period, flags, ends, alloca_used)

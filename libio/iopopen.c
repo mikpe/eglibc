@@ -48,7 +48,7 @@
 
 #ifndef _IO_fork
 #ifdef _LIBC
-#define _IO_fork __fork
+#define _IO_fork __vfork
 #else
 #define _IO_fork fork /* defined in libiberty, if needed */
 #endif
@@ -188,6 +188,15 @@ _IO_new_proc_open (fp, command, mode)
       read_or_write = _IO_NO_READS;
     }
 
+#ifdef _IO_MTSAFE_IO
+  /* The child will be accessing PROC_FILE_CHAIN, and if we are using
+     "vfork", we must ensure that no thread in the parent process
+     modifies the chain while the child is walking it.  This thread
+     will not modify the chain because it will be blocked until the
+     child calls exec.  */
+  _IO_cleanup_region_start_noarg (unlock);
+  _IO_lock_lock (proc_file_chain_lock);
+#endif
   ((_IO_proc_file *) fp)->pid = child_pid = _IO_fork ();
   if (child_pid == 0)
     {
@@ -233,6 +242,10 @@ _IO_new_proc_open (fp, command, mode)
       _IO_execl ("/bin/sh", "sh", "-c", command, (char *) 0);
       _IO__exit (127);
     }
+#ifdef _IO_MTSAFE_IO
+  _IO_lock_unlock (proc_file_chain_lock);
+  _IO_cleanup_region_end (0);
+#endif
   _IO_close (child_end);
   if (child_pid < 0)
     {

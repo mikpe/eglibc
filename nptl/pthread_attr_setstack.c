@@ -20,6 +20,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <limits.h>
+#include <eglibc/dynconf.h>
 #include "pthreadP.h"
 
 
@@ -40,7 +41,7 @@ __pthread_attr_setstack (attr, stackaddr, stacksize)
   iattr = (struct pthread_attr *) attr;
 
   /* Catch invalid sizes.  */
-  if (stacksize < PTHREAD_STACK_MIN)
+  if (stacksize < EGLIBC_THREAD_STACK_MIN)
     return EINVAL;
 
 #ifdef EXTRA_PARAM_CHECKS

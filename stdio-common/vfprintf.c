@@ -30,7 +30,7 @@
 #include "_itoa.h"
 #include <locale/localeinfo.h>
 #include <stdio.h>
-#include <gnu/option-groups.h>
+#include <eglibc/dynconf.h>
 
 /* This code is shared between the standard stdio implementation found
    in GNU C library and the libio implementation originally found in
@@ -45,7 +45,12 @@
 #undef va_list
 #define va_list	_IO_va_list
 #undef BUFSIZ
-#define BUFSIZ		_IO_BUFSIZ
+#ifdef __OPTION_EGLIBC_DYNAMIC_CONF
+# define BUFSIZ		EGLIBC_BUFSIZ
+#else /* defined(__OPTION_EGLIBC_DYNAMIC_CONF) */
+# define BUFSIZ         _IO_BUFSIZ
+#endif /* !defined(__OPTION_EGLIBC_DYNAMIC_CONF) */
+
 #define ARGCHECK(S, Format) \
   do									      \
     {									      \
@@ -2226,7 +2231,8 @@ internal_function
 buffered_vfprintf (register _IO_FILE *s, const CHAR_T *format,
 		   _IO_va_list args)
 {
-  CHAR_T buf[_IO_BUFSIZ];
+  const size_t bufsiz = EGLIBC_BUFSIZ;
+  CHAR_T buf[bufsiz];
   struct helper_file helper;
   register _IO_FILE *hp = (_IO_FILE *) &helper._f;
   int result, to_flush;
@@ -2240,10 +2246,10 @@ buffered_vfprintf (register _IO_FILE *s, const CHAR_T *format,
   helper._put_stream = s;
 #ifdef COMPILE_WPRINTF
   hp->_wide_data = &helper._wide_data;
-  _IO_wsetp (hp, buf, buf + sizeof buf / sizeof (CHAR_T));
+  _IO_wsetp (hp, buf, buf + bufsiz / sizeof (CHAR_T));
   hp->_mode = 1;
 #else
-  _IO_setp (hp, buf, buf + sizeof buf);
+  _IO_setp (hp, buf, buf + bufsiz);
   hp->_mode = -1;
 #endif
   hp->_IO_file_flags = _IO_MAGIC|_IO_NO_READS|_IO_USER_LOCK;

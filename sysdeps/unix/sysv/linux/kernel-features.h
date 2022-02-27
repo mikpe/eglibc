@@ -383,7 +383,8 @@
    were fixed too.  Except s390{,x} which was fixed in 2.6.11.  */
 #if (__LINUX_KERNEL_VERSION >= 0x020608 && !defined __s390__) \
     || (__LINUX_KERNEL_VERSION >= 0x02060b && defined __s390__)
-# define __ASSUME_GETDENTS32_D_TYPE	1
+// XXX don't do this for generic syscalls.
+// # define __ASSUME_GETDENTS32_D_TYPE	1
 #endif
 
 /* Starting with version 2.5.3, the initial location returned by `brk'

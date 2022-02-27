@@ -1,0 +1,70 @@
+#include <stddef.h>
+#include <signal.h>
+#include <sys/ucontext.h>
+
+--
+
+SIG_BLOCK
+SIG_SETMASK
+
+-- Offsets of the fields in the ucontext_t structure.
+#define ucontext(member)   offsetof (ucontext_t, member)
+#define mcontext(member)   ucontext (uc_mcontext.sc_regs.member)
+
+UCONTEXT_LINK        ucontext (uc_link)
+UCONTEXT_STACK       ucontext (uc_stack)
+UCONTEXT_STACK_SP    ucontext (uc_stack.ss_sp)
+UCONTEXT_STACK_FLAGS ucontext (uc_stack.ss_flags)
+UCONTEXT_STACK_SIZE  ucontext (uc_stack.ss_size)
+UCONTEXT_SIGMASK     ucontext (uc_sigmask)
+UCONTEXT_MCONTEXT    ucontext (uc_mcontext)
+
+REG_R0               mcontext(r0)
+REG_R1               mcontext(r1)
+REG_R2               mcontext(r2)
+REG_R3               mcontext(r3)
+REG_R4               mcontext(r4)
+REG_R5               mcontext(r5)
+REG_R6               mcontext(r6)
+REG_R7               mcontext(r7)
+REG_R8               mcontext(r8)
+REG_R9               mcontext(r9)
+REG_R10              mcontext(r10)
+REG_R11              mcontext(r11)
+REG_R12              mcontext(r12)
+REG_R13              mcontext(r13)
+REG_R14              mcontext(r14)
+REG_R15              mcontext(r15)
+REG_R16              mcontext(r16)
+REG_R17              mcontext(r17)
+REG_R18              mcontext(r18)
+REG_R19              mcontext(r19)
+REG_R20              mcontext(r20)
+REG_R21              mcontext(r21)
+REG_R22              mcontext(r22)
+REG_R23              mcontext(r23)
+REG_R24              mcontext(r24)
+REG_R25              mcontext(r25)
+REG_R26              mcontext(r26)
+REG_R27              mcontext(r27)
+REG_R28              mcontext(r28)
+REG_R29              mcontext(r29)
+REG_R30              mcontext(r30)
+REG_R31              mcontext(r31)
+
+REG_SA0              mcontext(sa0)
+REG_LC0              mcontext(lc0)
+REG_SA1              mcontext(sa1)
+REG_LC1              mcontext(lc1)
+REG_M0               mcontext(m0)
+REG_M1               mcontext(m1)
+REG_USR              mcontext(usr)
+REG_P3_0             mcontext(p3_0)
+REG_GP               mcontext(gp)
+REG_UGP              mcontext(ugp)
+REG_PC               mcontext(pc)
+REG_CAUSE            mcontext(cause)
+REG_BADVA            mcontext(badva)
+REG_PAD1             mcontext(pad1)
+REG_PAD2             mcontext(pad2)
+REG_PAD3             mcontext(pad3)

@@ -36,6 +36,7 @@
 #ifdef HAVE_LIBAUDIT
 # include <libaudit.h>
 #endif
+#include <eglibc/dynconf.h>
 
 #include "dbg_log.h"
 #include "selinux.h"
@@ -135,8 +136,9 @@ log_callback (const char *fmt, ...)
       int e = vasprintf (&buf, fmt, ap);
       if (e < 0)
 	{
-	  buf = alloca (BUFSIZ);
-	  vsnprintf (buf, BUFSIZ, fmt, ap);
+	  const size_t bufsiz = EGLIBC_BUFSIZ;
+	  buf = alloca (bufsiz);
+	  vsnprintf (buf, bufsiz, fmt, ap);
 	}
 
       /* FIXME: need to attribute this to real user, using getuid for now */

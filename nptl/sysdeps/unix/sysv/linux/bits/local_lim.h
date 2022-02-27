@@ -79,7 +79,7 @@
 #define AIO_PRIO_DELTA_MAX	20
 
 /* Minimum size for a thread.  We are free to choose a reasonable value.  */
-#define PTHREAD_STACK_MIN	16384
+#define PTHREAD_STACK_MIN	262144
 
 /* Maximum number of timer expiration overruns.  */
 #define DELAYTIMER_MAX	2147483647

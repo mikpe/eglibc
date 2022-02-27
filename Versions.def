@@ -37,6 +37,7 @@ libc {
   GCC_3.0
 %endif
   GLIBC_PRIVATE
+  EGLIBC_DYNAMIC_CONF_1.0
 }
 libcrypt {
   GLIBC_2.0

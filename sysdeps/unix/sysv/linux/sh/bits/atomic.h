@@ -65,7 +65,7 @@ typedef uintmax_t uatomic_max_t;
       r1:     saved stack pointer
 */
 
-#if __GNUC_PREREQ (4, 7)
+#if __GNUC_PREREQ (4, 6)
 # define rNOSP "u"
 #else
 # define rNOSP "r"

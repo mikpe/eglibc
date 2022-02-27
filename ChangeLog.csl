@@ -1,0 +1,769 @@
+2014-10-29  James Lemke  <jwlemke@codesourcery.com>
+
+	Issue 15858
+
+	* nptl/sysdeps/unix/sysv/linux/bits/local_lim.h (PTHREAD_STACK_MIN):
+	Increase for 64K page size.
+
+2013-10-30  James Lemke  <jwlemke@codesourcery.com>
+
+	Issue 15564
+
+	* release-notes-csl.xml (glibc version checking): New note.
+	* elf/elf.h (EF_HEXAGON_MACH_V5): New define.
+	* sysdeps/hexagon/hexagon-32/dl-machine.h (elf_machine_matches_host):
+	  Use new define.
+
+2012-06-21  Tom de Vries  <tom@codesourcery.com>
+
+	* shlib-versions (hexagon-.*-linux.*): Set minimum symbol version to
+	GLIBC_2.17.
+
+2012-06-20  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/hexagon/bits/setjmp.h (__jmp_buf): Tag struct in typedef with
+	__jmp_buf_internal_tag.
+
+2012-06-20  Tom de Vries  <tom@codesourcery.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/pt-vfork.S: Use syscall
+	clone instead of the deprecated syscall vfork.
+
+2012-06-20  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/futimesat.c: Copy file from
+	ports/sysdeps/unix/sysv/linux/generic/futimesat.c.
+
+2012-06-15  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/hexagon/hexagon-32/elf/start.S: Use GOT instead of GOTOFF
+	relocation for main.
+
+2012-06-13  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/hexagon/hexagon-32/elf/tls-macros.h: Remove outdated comments.
+	(TLS_LD): Remove mapping onto TLS_GD.  Call __tls_get_addr using LDPLT
+	relocation.
+	(TLS_GD): Call __tls_get_addr using GDPLT relocation.
+
+2012-06-06  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/hexagon/hexagon-32/elf/tls-macros.h (CALL_CLOBBER_LIST):
+	Define.
+	(TLS_LE, TLS_IE, TLS_GD, TLS_LD): Remove volatile from asm.
+	(TLS_GD, TLS_LD): Use CALL_CLOBBER_LIST.  Use __tls_get_addr.  Remove
+	unused tp variable.  Add non-pic variants. Add gotoff and tpoff
+	variables.  Make copy to r0 redundant and remove.
+	(TLS_LD): Use LDGOT relocation.  Define to TLS_GD.
+
+2012-03-22  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/configure: Regenerate.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* time/tzfile.c: Include stdint.h.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* (FCT): Redeclare with optimize O0 attribute, as workaround for
+	compiler bug.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* include/libc-symbols.h: Define libc_hidden_nolink as hidden_def.
+	instead of as hidden_nolink.
+	* nis/Makefile (headers): Define.
+	(distribute): Remove $(wildcard rpcsvc/*.[hx]).
+	* sunrpc/Makefile (headers): Add $(headers-in-tirpc) $(headers-not-in-tirpc).
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/Makefile: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/Versions: Likewise.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/getcontext.S: Likewise.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/makecontext.c: Likewise.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/setcontext.S: Likewise.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/swapcontext.c: Likewise.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/ucontext_i.sym: Likewise.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* abilist/ld.abilist: Add hexagon-.*-linux.*.
+	* abilist/libBrokenLocale.abilist: Likewise.
+	* abilist/libanl.abilist: Likewise.
+	* abilist/libc.abilist: Likewise.
+	* abilist/libcrypt.abilist: Likewise.
+	* abilist/libdl.abilist: Likewise.
+	* abilist/libm.abilist: Likewise.
+	* abilist/libnsl.abilist: Likewise.
+	* abilist/libpthread.abilist: Likewise.
+	* abilist/libresolv.abilist: Likewise.
+	* abilist/librt.abilist: Likewise.
+	* abilist/libthread_db.abilist: Likewise.
+	* abilist/libutil.abilist: Likewise.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* shlib-versions: Add hexagon architecture.
+
+	nptl/
+	* shlib-versions: Add hexagon architecture.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/hexagonv3/memcpy.S: New file.
+	* sysdeps/hexagon/hexagon-32/hexagonv3/memmove.c: New file.
+	* sysdeps/hexagon/hexagon-32/hexagonv3/reverse-memcpy.S: New file.
+	* sysdeps/hexagon/hexagon-32/hexagonv3/Makefile: New file.
+	* sysdeps/hexagon/hexagon-32/hexagonv3/forward-memcpy.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/gccframe.h: New file.
+	* sysdeps/unix/sysv/linux/configure.in: Add hexagon.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* scripts/data/c++-types-hexagon-linux-gnu.data: New file.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/sysdep.h (PTR_MANGLE)
+	(PTR_MANGLE2, PTR_MANGLE3, PTR_DEMANGLE, PTR_DEMANGLE2, PTR_DEMANGE3):.
+	Define.
+	* sysdeps/hexagon/tcb-offsets.sym (POINTER_GUARD): Define.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/generic/bits/statfs.h: Add f_flags word.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/Implies: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/sysdep.h: Likewise.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/getdents.c: Guard default syscall getdents with.
+	!defined __NR_getdents64 && !defined __ASSUME_GETDENTS64_SYSCALL.
+	* sysdeps/unix/sysv/linux/kernel-features.h.
+	(__ASSUME_GETDENTS32_D_TYPE): Comment out define.
+
+2012-03-21  Chris Metcalf  <cmetcalf@tilera.com>
+
+	* sysdeps/unix/sysv/linux/fxstat64.c (fxstat64): Don't provide the.
+	64-bit version of the function if XSTAT_IS_XSTAT64, since in that.
+	case we are providing an alias from fxstat().
+	* sysdeps/unix/sysv/linux/fxstatat64.c (fxstatat64): Likewise.
+	* sysdeps/unix/sysv/linux/lstat64.c (lstat64): Likewise.
+	* sysdeps/unix/sysv/linux/xstat64.c (xstat64): Likewise.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/generic/bits/fcntl.h (F_SETPIPE_SZ)
+	(F_GETPIPE_SZ): Define.
+	(F_DUPFD_CLOEXEC): Guard define with __USE_XOPEN2K8.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/generic/bits/mman.h: New file.
+
+2012-03-21  Chris Metcalf  <cmetcalf@tilera.com>
+
+	* sysdeps/unix/sysv/linux/generic/Makefile: New file.
+	* sysdeps/unix/sysv/linux/generic/____longjmp_chk.c: New file.
+	* sysdeps/unix/sysv/linux/generic/access.c: New file.
+	* sysdeps/unix/sysv/linux/generic/bits/fcntl.h: New file.
+	* sysdeps/unix/sysv/linux/generic/bits/sem.h: New file.
+	* sysdeps/unix/sysv/linux/generic/bits/stat.h: New file.
+	* sysdeps/unix/sysv/linux/generic/bits/statfs.h: New file.
+	* sysdeps/unix/sysv/linux/generic/bits/typesizes.h: New file.
+	* sysdeps/unix/sysv/linux/generic/brk.c: New file.
+	* sysdeps/unix/sysv/linux/generic/chmod.c: New file.
+	* sysdeps/unix/sysv/linux/generic/chown.c: New file.
+	* sysdeps/unix/sysv/linux/generic/creat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/dup2.c: New file.
+	* sysdeps/unix/sysv/linux/generic/epoll_create.c: New file.
+	* sysdeps/unix/sysv/linux/generic/epoll_wait.c: New file.
+	* sysdeps/unix/sysv/linux/generic/inotify_init.c: New file.
+	* sysdeps/unix/sysv/linux/generic/kernel_stat.h: New file.
+	* sysdeps/unix/sysv/linux/generic/lchown.c: New file.
+	* sysdeps/unix/sysv/linux/generic/link.c: New file.
+	* sysdeps/unix/sysv/linux/generic/lxstat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/mkdir.c: New file.
+	* sysdeps/unix/sysv/linux/generic/nptl/not-cancel.h: New file.
+	* sysdeps/unix/sysv/linux/generic/open.c: New file.
+	* sysdeps/unix/sysv/linux/generic/open64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/pause.c: New file.
+	* sysdeps/unix/sysv/linux/generic/pipe.c: New file.
+	* sysdeps/unix/sysv/linux/generic/poll.c: New file.
+	* sysdeps/unix/sysv/linux/generic/readlink.c: New file.
+	* sysdeps/unix/sysv/linux/generic/readlink_chk.c: New file.
+	* sysdeps/unix/sysv/linux/generic/recv.c: New file.
+	* sysdeps/unix/sysv/linux/generic/rename.c: New file.
+	* sysdeps/unix/sysv/linux/generic/rmdir.c: New file.
+	* sysdeps/unix/sysv/linux/generic/select.c: New file.
+	* sysdeps/unix/sysv/linux/generic/send.c: New file.
+	* sysdeps/unix/sysv/linux/generic/symlink.c: New file.
+	* sysdeps/unix/sysv/linux/generic/syscalls.list: New file.
+	* sysdeps/unix/sysv/linux/generic/sysctl.c: New file.
+	* sysdeps/unix/sysv/linux/generic/sysdep.h: New file.
+	* sysdeps/unix/sysv/linux/generic/umount.c: New file.
+	* sysdeps/unix/sysv/linux/generic/unlink.c: New file.
+	* sysdeps/unix/sysv/linux/generic/ustat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/utimes.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/Versions: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/fcntl.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/fstatfs.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/ftruncate.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/ftruncate64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/fxstat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/fxstatat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/llseek.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/lseek.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/lxstat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/lxstat64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/mmap.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/overflow.h: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/posix_fadvise.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pread.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pread64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/preadv.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/preadv64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pwrite.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pwrite64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pwritev.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/pwritev64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/sendfile.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/statfs.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/syscalls.list: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/truncate.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/truncate64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/xstat.c: New file.
+	* sysdeps/unix/sysv/linux/generic/wordsize-32/xstat64.c: New file.
+	* sysdeps/unix/sysv/linux/generic/xmknod.c: New file.
+	* sysdeps/unix/sysv/linux/generic/xstat.c: New file.
+
+2012-03-21  Chris Metcalf  <cmetcalf@tilera.com>
+
+	* sysdeps/unix/sysv/linux/not-cancel.h (open_not_cancel)
+	(open_not_cancel2): Use__NR_openat if __NR_open is not present.
+
+
+2011-09-14  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/register-dump.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-mcount.S: New file.
+	* sysdeps/hexagon/machine-gmon.h: New file.
+	* sysdeps/unix/sysv/linux/hexagon/profil-counter.h: New file.
+	* sysdeps/unix/sysv/linux/hexagon/sigcontextinfo.h: New file.
+	* sysdeps/hexagon/Makefile: Add hexagon-mcount.
+
+2012-03-21  Pavel Potoplyak <pavelp@quicinc.com>
+	    Linas Vepstas  <linasvepstas@gmail.com>
+	    Tom de Vries <tom@codesourcery.com>
+
+	* sysdeps/hexagon/bits/atomic.h: New file.
+	* sysdeps/hexagon/hexagon-32/bits/atomic.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/memusage.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/pthread_once.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+   * sysdeps/hexagon/hexagon-32/elf/start.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/sysdep.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/abort-instr.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/setjmp.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+        * sysdeps/generic/ldsodefs.h: Provide hexagon function defn's.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/dl-trampoline.S: New file.
+	* sysdeps/hexagon/dl-runtime.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* elf/elf.h: Added relocation numbers for Hexagon.
+	* sysdeps/hexagon/hexagon-32/dl-machine.h: New file.
+	* elf/dl-minimal.c (__strerror_r): Remove ENOEXEC case.
+	* sysdeps/hexagon/hexagon-32/Makefile (CFLAGS-rtld.c, CFLAGS-dl-load.c)
+	(CFLAGS-dl-reloc.c): Add -Wno-unused.
+	(CFLAGS-rtld.c): Add -Wno-uninitialized.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/__longjmp.c: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/____longjmp_chk.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/pt-vfork.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/jmpbuf-offsets.h: New file.
+	* sysdeps/hexagon/jmpbuf-unwind.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/bits/semaphore.h: New file.
+
+2012-03-21  Pavel Potoplyak <pavelp@quicinc.com>
+	    Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/hexagon/pthread_spin_lock.c: New file.
+	* sysdeps/hexagon/pthread_spin_trylock.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/stackinfo.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/Implies: New file.
+	* sysdeps/hexagon/hexagon-32/Versions: New file.
+	* sysdeps/hexagon/hexagon-32/Makefile: New file.
+
+2012-03-21  Pavel Potoplyak <pavelp@quicinc.com>
+	    Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/clone.S: New file.
+
+	nptl/
+	* sysdeps/hexagon/Makefile: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/clone.S: New file.
+	* sysdeps/hexagon/tcb-offsets.sym (PID, TID): Define.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/fork.c: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/bits/fenv.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/sys/procfs.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/sys/user.h: New file.
+
+2012-03-21  Linas Vepstas <linasvepstas@gmail.com>
+	    Pavelp Potoplyak <pavelp@quicinc.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/sysdep-cancel.h: New file.
+	* sysdeps/hexagon/tcb-offsets.sym: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/hexagon/pthreaddef.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/dl-tls.h: New file.
+	* sysdeps/hexagon/hexagon-32/elf/tls-macros.h: New file.
+	* sysdeps/hexagon/libc-tls.c: New file.
+
+	nptl/
+	* sysdeps/hexagon/tls.h: New file.
+
+2012-03-21  Pavel Potoplyak  <ppotoplyak@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/hexagon/recv.c: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon/send.c: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon/syscalls.list: New file.
+
+2012-03-21  Pavel Potoplyak <pavelp@quicinc.com>
+	    Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/syscall.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/sysdep.h: New file.
+	* sysdeps/unix/hexagon/sysdep.h: New file.
+	* sysdeps/unix/sysv/linux/hexagon/hexagon-32/sysdep.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/lowlevellock.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	nptl/
+	* sysdeps/unix/sysv/linux/hexagon/bits/pthreadtypes.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/bits/setjmp.h: New file.
+	* sysdeps/hexagon/bsd-_setjmp.S: New file.
+	* sysdeps/hexagon/bsd-setjmp.S: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/bits/link.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+
+	* sysdeps/hexagon/hexagon-32/bits/endian.h: New file.
+	* sysdeps/hexagon/hexagon-32/bits/wordsize.h: New file.
+
+2012-03-21  Linas Vepstas  <linasvepstas@gmail.com>
+	    Tom de Vries  <tom@codesourcery.com>
+
+	* configure.in: Add hexagon base machine.
+	* configure: Regenerate.
+	* scripts/config.guess: Likewise.
+	* scripts/config.sub: Likewise.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/wordsize-32/symbol-hacks.h: Use .set in asms if.
+	HAVE_ASM_SET_DIRECTIVE.
+
+2012-03-21  Linas Vepstas <linasvepstas@gmail.com>
+
+	* include/libc-symbols.h (weak_alias): Use the .set assembler directive,
+	if supported.
+
+2012-03-21  Linas Vepstas <linasvepstas@gmail.com>
+	    Tom de Vries  <tom@codesourcery.com>
+
+	* configure.in: Use the .set directive when testing for .weak support.
+	* congigure: Regenerate.
+
+2012-03-21  Tom de Vries  <tom@codesourcery.com>
+
+	* Makefile.in (install): Pass install_root to $(MAKE).
+
+2012-03-08  Thomas Schwinge  <thomas@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	Backport from upstream:
+
+	2012-03-08  Thomas Schwinge  <thomas@codesourcery.com>
+
+	* resolv/gai_misc.c (handle_requests): Fix struct timespec
+	normalization.
+	* rt/tst-cpuclock2.c (test_nanosleep): Likewise.
+	* sysdeps/pthread/aio_misc.c (handle_fildes_io): Likewise.
+
+	Issue #12512
+
+	Merge from SG++ 2.13:
+
+	Backport from upstream:
+
+	nptl/
+	2012-03-08  Thomas Schwinge  <thomas@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/sh/lowlevellock.S (__lll_timedlock_wait):
+	Check for timestamp before the Epoch.
+
+	Issue #12514
+
+	Merge from SG++ 2.13:
+
+	Backport from upstream:
+
+	nptl/
+	2012-03-08  Thomas Schwinge  <thomas@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/sh/sem_timedwait.S (sem_timedwait): Fix
+	updating nwaiters.
+
+	* tst-sem13.c (do_test): Add another test case.
+	* sysdeps/unix/sysv/linux/i386/i486/sem_timedwait.S (sem_timedwait):
+	Fix updating nwaiters.
+
+2012-02-24  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2011-12-09  Tom de Vries  <tom@codesourcery.com>
+
+	* nptl/sysdeps/pthread/bits/libc-lock.h (__libc_lock_lock): Use
+	lll_add_lock, if defined.
+
+2012-02-24  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-09-23  Maxim Kuvyrkov  <maxim@codesourcery.com>
+
+	Add __builtin_prefetch configure check.
+
+	* config.h.in: Update.
+	* configure: Regenerate.
+	* configure.in: Check for availability of __builtin_prefetch.
+
+2012-02-24  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-09-20  Maxim Kuvyrkov  <maxim@codesourcery.com>
+
+	* string/memmove.c (memmove): Use memcpy when possible.
+
+	2010-09-27  Tom de Vries  <tom@codesourcery.com>
+
+	* string/memmove.c (memmove): Take bcopy's use of memmove.c into
+	account.
+
+2012-02-19  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/unix/sysv/linux/sh/bits/atomic.h: Enable 'u' constraint
+	backport to gcc 4.6.
+
+2012-02-17  Tom de Vries  <tom@codesourcery.com>
+
+	CB-863
+	* sysdeps/powerpc/fpu/math_private.h: Only define __CPU_HAS_FSQRT if not already
+	defined.  Use __CPU_HAS_FSQRT to test for fsqrt support.
+	* sysdeps/powerpc/powerpc64/e5500/Makefile: New file.  Add
+	-D__CPU_HAS_FSQRT=0 to CFLAGS for math dir.
+
+2012-02-17  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-10-05  Nathan Froyd  <froydnj@codesourcery.com>
+
+	Issue #9382
+
+	* sysdeps/powerpc/powerpc32/603e/: New directory.
+	* sysdeps/unix/sysv/linux/powerpc/powerpc32/e500mc/: New directory.
+	* sysdeps/unix/sysv/linux/powerpc/powerpc32/603e/: New directory.
+	* sysdeps/unix/sysv/linux/powerpc/powerpc32/7400/: New directory.
+	* sysdeps/powerpc/powerpc64/e5500/fpu/e_sqrtf.c: Update.
+	* sysdeps/powerpc/powerpc64/e5500/fpu/e_sqrt.c: Update.
+	* sysdeps/powerpc/powerpc64/e5500/fpu/Implies: New file.
+
+2012-02-17  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-08-24  Nathan Froyd  <froydnj@codesourcery.com>
+
+	Issue #9044
+
+	* sysdeps/powerpc/powerpc64/e5500: New directory.
+	* sysdeps/unix/sysv/linux/powerpc/powerpc64/e5500: New directory.
+
+2012-02-17  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-08-04  Nathan Froyd  <froydnj@codesourcery.com>
+
+	From http://sources.redhat.com/ml/libc-alpha/2009-11/msg00017.html
+
+	2009-11-06  Petr Baudis  <pasky@suse.cz>
+	* include/sys/uio.h: Change __vector to __iovec to avoid clash
+	with altivec.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2011-04-03  Maxim Kuvyrkov  <maxim@codesourcery.com>
+
+	* string/bug-strcasestr1.c: Add test missed when merging from SG++ 2.11.
+
+	2011-02-23  Maxim Kuvyrkov  <maxim@codesourcery.com>
+	Issue #10560.
+	Revert some of the microoptimizations of strstr() and strcasestr()
+	that turned out to be incorrect.
+	* release-notes-csl.xml: Add a release note.
+	* string/bug-strcasestr1.c: New test.
+	* string/Makefile: Run it.
+	* string/strstr.c (AVAILABLE): Revert.
+	(AVAILABLE1, AVAILABLE2): Define.
+	* string/strcasestr.c (TOLOWER): Make auto-increment safe.
+	(AVAILABLE): Revert.
+	(AVAILABLE1, AVAILABLE2): Define.
+	* string/str-two-way.h (AVAILABLE1, AVAILABLE2): Define defaults.
+	(two_way_short_needle): Revert checking checking for end-of-string
+	to the original except when searching for a first match.
+	(two_way_long_needle): Revert checking checking for end-of-string
+	to the original.
+
+	2010-09-20  Maxim Kuvyrkov  <maxim@codesourcery.com>
+	Micro-optimize strstr, strcasestr and memmem.
+	* release-notes-csl.xml: Add note.
+	* string/str-two-way.h (RET0_IF_0, AVAILABLE_USES_J): New macros,
+	define their defaults.
+	(two_way_short_needle): Use pointers for traversing arrays, detect
+	end-of-string on the fly.  Use optimized first-character-loop.
+	(two_way_long_needle): Use pointers for traversing arrays, detect
+	end-of-string on the fly.
+	* string/strcasestr.c, string/strstr.c (AVAILABLE): Update.
+	(RET0_IF_0, AVAILABLE_USES_J): Define.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-06-30  Mark Mitchell  <mark@codesourcery.com>
+
+	* nptl/pthread_attr_setstack.c (<eglibc/dynconf.h>): #include.
+	(__pthread_attr_setstack): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/nptl-init.c (__pthread_initialize_minimal_internal):
+	Likewise.
+	* nptl/sysdeps/unix/sysv/linux/mq_notify.c (<eglibc/dynconf.h>):
+	#include.
+	(init_mq_netlink): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/sysdeps/unix/sysv/linux/timer_routines.c
+	(<eglibc/dynconf.h>): #include.
+	(__start_helper_thread): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/sysdeps/unix/sysv/linux/aio_misc.h (<eglibc/dynconf.h>):
+	#include.
+	(__aio_create_helper_thread): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/sysdeps/pthread/gai_misc.h (<eglibc/dynconf.h>): #include.
+	(__gai_create_helper_thread): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/sysdeps/pthread/allocalim.h (<eglibc/dynconf.h>): #include.
+	(__libc_use_alloca): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/pthread_create.c (<eglibc/dynconf.h>): #include.
+	(start_thread): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+	* nptl/pthread_attr_setstacksize.c (<eglibc/dynconf.h>): #include.
+	(__pthread_attr_setstacksize): Use EGLIBC_THREAD_STACK_MIN in lieu of
+	PTHREAD_STACK_MIN.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-06-30  Mark Mitchell  <mark@codesourcery.com>
+
+	* nscd/selinux.c (<eglibc/dynconf.h>): #include.
+	* stdio-common/vfprintf.c (<gnu/option-groups.h>): Do not #include.
+	(<eglibc/dynconf.h>): #include.
+	(BUFSIZ): When __OPTION_EGLIBC_DYNAMIC_CONF, define to
+	EGLIBC_BUFSIZ.
+	(buffered_vfprintf): Use EGLIBC_BUFSIZ to define size of array.
+	* resolv/res_init.c (<eglibc/dynconf.h>): #include.
+	(__res_vinit): Use EGLIBC_BUFSIZ to define size of array.
+	* resolv/res_query.c (<eglibc/dynconf.h>): #include.
+	(res_hostalias): Use EGLIBC_BUFSIZ to define size of array.
+
+	2010-07-01  Mark Mitchell  <mark@codesourcery.com>
+
+	* nscd/selinux.c (log_callback): Ensure consistency between
+	successive uses of EGLIBC_BUFSIZ.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-06-27  Mark Mitchell  <mark@codesourcery.com>
+
+	* option-groups.def (OPTION_EGLIBC_DYNAMIC_CONF): New.
+	* option-grouups.defaults (OPTION_EGLIBC_DYNAMIC_CONF): Define to "n".
+	* sysdeps/unix/sysv/linux/dynconf.c: New.
+	* sysdeps/unix/sysv/linux/eglibc/dynconf.h: New.
+	* include/eglibc/dynconf.h: New.
+	* sysdeps/unix/sysv/linux/Makefile (sysdep_routines):
+	Conditionally add dynconf.
+	(sysdep_headers): Add dynconf.
+	* sysdeps/unix/sysv/linux/Versions (EGLIBC_DYNAMIC_CONF_1.0): New.
+	* Versions.def (EGLIBC_DYNAMIC_CONF_1.0): Likewise.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2010-06-27  Mark Mitchell  <mark@codesourcery.com>
+
+	* libio/iopopen.c (_IO_fork): Define to __vfork.
+	(_IO_new_proc_open): Lock proc_file_chain_lock until the child
+	calls exec.
+	* sysdeps/unix/grantpt.c (grantpt): Call __vfork instead of fork.
+	* sysdeps/posix/system.c (do_system): Do not call INIT_LOCK in the
+	child if FORK_IS_VFORK.
+	* sydeps/unix/sysv/linux/system.c (FORK): Use CLONE_VFORK.  Store
+	the child PID in clenup_pid.
+	(FORK_IS_VFORK): Define.
+	(CLEANUP_HANDLER): Declare cleanup_pid.
+	(CLEANUP_RESET): Adjust accordingly.
+	* posix/wordexp.c (exec_comm): Add comment regarding non-use of vfork.
+
+	2010-07-01  Mark Mitchell  <mark@codesourcery.com>
+
+	* sysdeps/unix/grantpt.c (grantpt): Call __fork, not __vfork.
+
+	2011-02-23  Thomas Schwinge  <thomas@codesourcery.com>
+
+	Issue #10575
+	* libio/iopopen.c (_IO_new_proc_open): Move unlocking of
+	proc_file_chain to the correct place.  Add a cleanup handler for the
+	region it is locked in.
+	* release-notes-csl.xml: Document this.
+
+2012-02-15  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ 2.13:
+
+	2009-04-17  Maciej W. Rozycki  <macro@codesourcery.com>
+
+	* elf/dl-open.c (add_to_global): Allocate the global search list
+	if none present.
+
+2012-02-13  Tom de Vries  <tom@codesourcery.com>
+
+	Merge from SG++ EGLIBC 2.13:
+
+	2012-02-07  Tom de Vries  <tom@codesourcery.com>
+
+	CB-799
+	* sysdeps/sh/nofpu/{s_fma.c, s_fmaf.c}: New files to work around
+	ieee754 requirement for exceptions and rounding modes.
+
+2012-02-13  Tom de Vries  <tom@codesourcery.com>
+
+	* sysdeps/sh/nofpu/math_private.h: New file.
+
+2012-02-03  Tom de Vries  <tom@codesourcery.com>
+
+	* release-notes-csl.xml: New file.  Add release note for 2.15.

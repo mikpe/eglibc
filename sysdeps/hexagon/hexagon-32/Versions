@@ -1,0 +1,8 @@
+
+libc {
+  GLIBC_2.12 {
+    # Functions from libgcc.
+    __divsi3; __modsi3; __udivsi3; __umodsi3; __udivmodsi4;
+    __divdi3; __moddi3; __udivdi3; __umoddi3; __udivmoddi4;
+  }
+}

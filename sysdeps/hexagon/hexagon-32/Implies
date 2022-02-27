@@ -1,0 +1,11 @@
+
+wordsize-32
+
+# Use IEEE 754 floating point.
+# The long double formats need gcc help; disabled for now.
+# ieee754/ldbl-128
+# ieee754/ldbl-96
+
+ieee754/dbl-64
+ieee754/flt-32
+

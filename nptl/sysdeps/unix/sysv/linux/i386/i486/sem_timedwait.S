@@ -65,7 +65,7 @@ sem_timedwait:
 	/* Check for invalid nanosecond field.  */
 	cmpl	$1000000000, 4(%edi)
 	movl	$EINVAL, %esi
-	jae	6f
+	jae	.Lerrno_exit
 
 	LOCK
 	incl	NWAITERS(%ecx)
@@ -147,6 +147,10 @@ sem_timedwait:
 .Lafter_ret:
 3:	negl	%esi
 6:
+	movl	28(%esp), %ebx	/* Load semaphore address.  */
+	LOCK
+	decl	NWAITERS(%ebx)
+.Lerrno_exit:
 #ifdef PIC
 	call	__i686.get_pc_thunk.bx
 #else
@@ -163,7 +167,6 @@ sem_timedwait:
 	movl	%esi, %gs:(%edx)
 #endif
 
-	movl	28(%esp), %ebx	/* Load semaphore address.  */
 	orl	$-1, %eax
 	jmp	10b
 	.size	sem_timedwait,.-sem_timedwait

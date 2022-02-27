@@ -38,13 +38,17 @@
 #include <stdbool.h>
 #include <strings.h>
 
-#define TOLOWER(Ch) (isupper (Ch) ? tolower (Ch) : (Ch))
+#define TOLOWER(Ch) tolower (Ch)
 
 /* Two-Way algorithm.  */
 #define RETURN_TYPE char *
 #define AVAILABLE(h, h_l, j, n_l)			\
   (!memchr ((h) + (h_l), '\0', (j) + (n_l) - (h_l))	\
    && ((h_l) = (j) + (n_l)))
+#define AVAILABLE1(h, h_l, j, n_l) (true)
+#define AVAILABLE2(h, h_l, j, n_l) AVAILABLE (h, h_l, j, n_l)
+#define RET0_IF_0(a) if (!a) goto ret0
+#define AVAILABLE_USES_J (0)
 #define CANON_ELEMENT(c) TOLOWER (c)
 #define CMP_FUNC(p1, p2, l)				\
   __strncasecmp ((const char *) (p1), (const char *) (p2), l)

@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <pthreadP.h>
 #include <lowlevellock.h>
+#include <eglibc/dynconf.h>
 
 #define DONT_NEED_GAI_MISC_COND	1
 
@@ -99,7 +100,7 @@ __gai_create_helper_thread (pthread_t *threadp, void *(*tf) (void *),
   /* The helper thread needs only very little resources.  */
   (void) pthread_attr_setstacksize (&attr,
 				    __pthread_get_minstack (&attr)
-				    + 4 * PTHREAD_STACK_MIN);
+				    + 4 * EGLIBC_THREAD_STACK_MIN);
 
   /* Block all signals in the helper thread.  To do this thoroughly we
      temporarily have to block all signals here.  */

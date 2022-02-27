@@ -182,6 +182,9 @@ __strerror_r (int errnum, char *buf, size_t buflen)
     case EACCES:
       msg = (char *) "Permission denied";
       break;
+    case ENOEXEC:
+      msg = (char *) "Exec format error";
+      break;
     default:
       /* No need to check buffer size, all calls in the dynamic linker
 	 provide enough space.  */

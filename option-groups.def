@@ -233,6 +233,24 @@ config OPTION_EGLIBC_DB_ALIASES
        When this option group is disabled, the NSS service libraries
        also lack support for querying their mail alias tables.
 
+config OPTION_EGLIBC_DYNAMIC_CONF
+   bool "Functions for dynamically configuring EGLIBC behavior."
+   help
+       This option group contains functions for configuring EGLIBC
+       behavior (such as the size of I/O buffers allocated on the
+       stack) as the program runs.
+
+       It includes the following functions:
+         
+	 eglibc_getconf
+	 eglibc_setconf
+
+       When this option group is enabled, EGLIBC will use
+       configuration options provided at run-time, rather than
+       hard-coded values determined at the time EGLIBC is built.
+       Enabling this option group does not change the ABI for EGLIBC,
+       except that the functions mentioned above are defined.
+
 config OPTION_EGLIBC_ENVZ
    bool "Functions for handling envz-style environment vectors."
    help

@@ -4247,6 +4247,7 @@ m88???)		base_machine=m88k machine=m88k/$machine ;;
 m88k)		base_machine=m88k machine=m88k/m88100 ;;
 powerpc)	base_machine=powerpc machine=powerpc/powerpc32 ;;
 powerpc64)	base_machine=powerpc machine=powerpc/powerpc64 ;;
+hexagon)	base_machine=hexagon machine=hexagon/hexagon-32 ;;
 s390)           base_machine=s390 machine=s390/s390-32 ;;
 s390x)          base_machine=s390 machine=s390/s390-64 ;;
 sh3*)		base_machine=sh machine=sh/sh3 ;;
@@ -6652,7 +6653,7 @@ $as_echo "$libc_cv_z_initfirst" >&6; }
   libc_commonpagesize=${libc_commonpagesize:-no}
   libc_relro_required=${libc_relro_required:-no}
   case "$base_machine" in
-    i[34567]86 | x86_64 | powerpc* | s390*)
+    i[34567]86 | x86_64 | hexagon* | powerpc* | s390*)
       libc_commonpagesize=0x1000
       libc_relro_required=yes
       ;;
@@ -7334,6 +7335,13 @@ if test $elf = yes; then
   libc_cv_weak_symbols=yes
 fi
 
+if test $libc_cv_asm_set_directive = yes; then
+  libc_cv_asm_do_set=.set
+  libc_cv_asm_do_set_eq=","
+else
+  libc_cv_asm_do_set=
+  libc_cv_asm_do_set_eq="="
+fi
 { $as_echo "$as_me:$LINENO: checking for assembler .weak directive" >&5
 $as_echo_n "checking for assembler .weak directive... " >&6; }
 if test "${libc_cv_asm_weak_directive+set}" = set; then
@@ -7344,7 +7352,8 @@ ${libc_cv_dot_text}
 ${libc_cv_asm_global_directive} foo
 foo:
 .weak foo
-.weak bar; bar = foo
+.weak bar
+${libc_cv_asm_do_set} bar ${libc_cv_asm_do_set_eq} foo
 EOF
 if { ac_try='${CC-cc} $ASFLAGS -c conftest.s 1>&5'
   { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
@@ -7599,6 +7608,40 @@ if test "$libc_cv_gcc_builtin_expect" = no; then
   { { $as_echo "$as_me:$LINENO: error: support for __builtin_expect needed" >&5
 $as_echo "$as_me: error: support for __builtin_expect needed" >&2;}
    { (exit 1); exit 1; }; }
+fi
+
+{ $as_echo "$as_me:$LINENO: checking for __builtin_prefetch" >&5
+$as_echo_n "checking for __builtin_prefetch... " >&6; }
+if test "${libc_cv_gcc_builtin_prefetch+set}" = set; then
+  $as_echo_n "(cached) " >&6
+else
+  cat > conftest.c <<EOF
+#line $LINENO "configure"
+void foo (void *a)
+{
+  __builtin_prefetch (a, 0, 0);
+}
+EOF
+if { ac_try='${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -nostdlib -nostartfiles
+			    -o conftest conftest.c -lgcc >&5'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  libc_cv_gcc_builtin_prefetch=yes
+else
+  libc_cv_gcc_builtin_prefetch=no
+fi
+rm -f conftest*
+fi
+{ $as_echo "$as_me:$LINENO: result: $libc_cv_gcc_builtin_prefetch" >&5
+$as_echo "$libc_cv_gcc_builtin_prefetch" >&6; }
+if test "$libc_cv_gcc_builtin_prefetch" = yes; then
+  cat >>confdefs.h <<\_ACEOF
+#define HAVE_BUILTIN_PREFETCH 1
+_ACEOF
+
 fi
 
 { $as_echo "$as_me:$LINENO: checking for __builtin_memset" >&5

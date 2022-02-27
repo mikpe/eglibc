@@ -131,7 +131,12 @@ do_system (const char *line)
       (void) __sigaction (SIGINT, &intr, (struct sigaction *) NULL);
       (void) __sigaction (SIGQUIT, &quit, (struct sigaction *) NULL);
       (void) __sigprocmask (SIG_SETMASK, &omask, (sigset_t *) NULL);
+#ifndef FORK_IS_VFORK
+      /* If fork is actually vfork, then we do not need to
+	 re-initialize the lock in the child -- and doing so would in
+	 fact alter the parent's copy.  */
       INIT_LOCK ();
+#endif
 
       /* Exec the shell.  */
       (void) __execve (SHELL_PATH, (char *const *) new_argv, __environ);

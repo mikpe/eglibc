@@ -85,6 +85,7 @@ static const char rcsid[] = "$BINDId: res_init.c,v 8.16 2000/05/09 07:10:12 vixi
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <eglibc/dynconf.h>
 
 #include <not-cancel.h>
 
@@ -151,7 +152,8 @@ __res_vinit(res_state statp, int preinit) {
 	register FILE *fp;
 	register char *cp, **pp;
 	register int n;
-	char buf[BUFSIZ];
+	const size_t bufsiz = EGLIBC_BUFSIZ;
+	char buf[bufsiz];
 	int nserv = 0;    /* number of nameserver records read from file */
 #ifdef _LIBC
 	int nservall = 0; /* number of NS records read, nserv IPv4 only */
@@ -237,7 +239,7 @@ __res_vinit(res_state statp, int preinit) {
 	    /* No threads use this stream.  */
 	    __fsetlocking (fp, FSETLOCKING_BYCALLER);
 	    /* read the config file */
-	    while (fgets_unlocked(buf, sizeof(buf), fp) != NULL) {
+	    while (fgets_unlocked(buf, bufsiz, fp) != NULL) {
 		/* skip comments */
 		if (*buf == ';' || *buf == '#')
 			continue;

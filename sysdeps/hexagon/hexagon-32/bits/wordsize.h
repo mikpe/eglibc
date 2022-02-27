@@ -1,0 +1,4 @@
+
+#define __WORDSIZE    32
+#define __ASSUME_ALIGNED_REGISTER_PAIRS 1
+

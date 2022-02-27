@@ -177,6 +177,8 @@ grantpt (int fd)
   /* We have to use the helper program.  */
  helper:;
 
+  /* It is not safe to use __vfork here because the child will call
+     CLOSE_ALL_FDS -> __opendir -> __alloc_dir, which uses malloc.  */
   pid_t pid = __fork ();
   if (pid == -1)
     goto cleanup;

@@ -70,8 +70,8 @@ sem_timedwait:
 	mov.l	@(4,r9), r0
 	mov.l	.L1g, r1
 	cmp/hs	r1, r0
-	bt/s	6f
-	 mov	#EINVAL, r0
+	bt/s	.Lerrno_exit
+	 mov	#EINVAL, r10
 	INC (@(NWAITERS,r8),r2)
 
 7:
@@ -169,6 +169,8 @@ sem_timedwait:
 	neg	r0, r0
 6:
 	mov	r0, r10
+	DEC (@(NWAITERS,r8), r2)
+.Lerrno_exit:
 	mova	.Lgot2, r0
 	mov.l	.Lgot2, r12
 	add	r0, r12
@@ -183,7 +185,6 @@ sem_timedwait:
 	.long	errno@GOTTPOFF
 .Lexit:
 	mov.l	r10, @r0
-	DEC (@(NWAITERS,r8), r2)
 	bra	10b
 	 mov	#-1, r0
 

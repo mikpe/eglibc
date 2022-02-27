@@ -1,6 +1,7 @@
 /* Copy memory to memory until the specified number of bytes
    has been copied.  Overlap is handled correctly.
-   Copyright (C) 1991, 1995, 1996, 1997, 2003 Free Software Foundation, Inc.
+   Copyright (C) 1991, 1995, 1996, 1997, 2003, 2010
+   Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Torbjorn Granlund (tege@sics.se).
 
@@ -56,6 +57,9 @@ MEMMOVE (a1, a2, len)
     {
       /* Copy from the beginning to the end.  */
 
+#if MEMCPY_OK_FOR_FWD_MEMMOVE
+      memcpy (dest, src, len);
+#else
       /* If there not too few bytes to copy, use word copy.  */
       if (len >= OP_T_THRES)
 	{
@@ -80,10 +84,17 @@ MEMMOVE (a1, a2, len)
 
       /* There are just a few bytes to copy.  Use byte memory operations.  */
       BYTE_COPY_FWD (dstp, srcp, len);
+#endif /* MEMCPY_OK_FOR_FWD_MEMMOVE */
+
+      RETURN (dest);
     }
   else
     {
       /* Copy from the end to the beginning.  */
+
+#if MEMCPY_OK_FOR_BWD_MEMMOVE
+      memcpy (dest, src, len);
+#else
       srcp += len;
       dstp += len;
 
@@ -106,9 +117,10 @@ MEMMOVE (a1, a2, len)
 
       /* There are just a few bytes to copy.  Use byte memory operations.  */
       BYTE_COPY_BWD (dstp, srcp, len);
-    }
+#endif /* MEMCPY_OK_FOR_BWD_MEMMOVE */
 
-  RETURN (dest);
+      RETURN (dest);
+    }
 }
 #ifndef memmove
 libc_hidden_builtin_def (memmove)

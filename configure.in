@@ -546,6 +546,7 @@ m88???)		base_machine=m88k machine=m88k/$machine ;;
 m88k)		base_machine=m88k machine=m88k/m88100 ;;
 powerpc)	base_machine=powerpc machine=powerpc/powerpc32 ;;
 powerpc64)	base_machine=powerpc machine=powerpc/powerpc64 ;;
+hexagon)	base_machine=hexagon machine=hexagon/hexagon-32 ;;
 s390)           base_machine=s390 machine=s390/s390-32 ;;
 s390x)          base_machine=s390 machine=s390/s390-64 ;;
 sh3*)		base_machine=sh machine=sh/sh3 ;;
@@ -1603,7 +1604,7 @@ EOF
   libc_commonpagesize=${libc_commonpagesize:-no}
   libc_relro_required=${libc_relro_required:-no}
   case "$base_machine" in
-    i[[34567]]86 | x86_64 | powerpc* | s390*)
+    i[[34567]]86 | x86_64 | hexagon* | powerpc* | s390*)
       libc_commonpagesize=0x1000
       libc_relro_required=yes
       ;;
@@ -2015,6 +2016,13 @@ if test $elf = yes; then
   libc_cv_weak_symbols=yes
 fi
 
+if test $libc_cv_asm_set_directive = yes; then
+  libc_cv_asm_do_set=.set
+  libc_cv_asm_do_set_eq=","
+else
+  libc_cv_asm_do_set=
+  libc_cv_asm_do_set_eq="="
+fi
 AC_CACHE_CHECK(for assembler .weak directive, libc_cv_asm_weak_directive,
 	       [dnl
 cat > conftest.s <<EOF
@@ -2022,7 +2030,8 @@ ${libc_cv_dot_text}
 ${libc_cv_asm_global_directive} foo
 foo:
 .weak foo
-.weak bar; bar = foo
+.weak bar
+${libc_cv_asm_do_set} bar ${libc_cv_asm_do_set_eq} foo
 EOF
 if AC_TRY_COMMAND(${CC-cc} $ASFLAGS -c conftest.s 1>&AS_MESSAGE_LOG_FD); then
   libc_cv_asm_weak_directive=yes
@@ -2154,6 +2163,27 @@ fi
 rm -f conftest*])
 if test "$libc_cv_gcc_builtin_expect" = no; then
   AC_MSG_ERROR([support for __builtin_expect needed])
+fi
+
+dnl Check whether compiler understands __builtin_prefetch.
+AC_CACHE_CHECK(for __builtin_prefetch, libc_cv_gcc_builtin_prefetch,
+[cat > conftest.c <<EOF
+#line $LINENO "configure"
+void foo (void *a)
+{
+  __builtin_prefetch (a, 0, 0);
+}
+EOF
+dnl No \ in command here because it ends up inside ''.
+if AC_TRY_COMMAND([${CC-cc} $CFLAGS $CPPFLAGS $LDFLAGS -nostdlib -nostartfiles
+			    -o conftest conftest.c -lgcc >&AS_MESSAGE_LOG_FD]); then
+  libc_cv_gcc_builtin_prefetch=yes
+else
+  libc_cv_gcc_builtin_prefetch=no
+fi
+rm -f conftest*])
+if test "$libc_cv_gcc_builtin_prefetch" = yes; then
+  AC_DEFINE(HAVE_BUILTIN_PREFETCH)
 fi
 
 AC_CACHE_CHECK(for __builtin_memset, libc_cv_gcc_builtin_memset, [dnl

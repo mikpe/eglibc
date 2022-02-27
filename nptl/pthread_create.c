@@ -30,6 +30,7 @@
 #include <resolv.h>
 #include <kernel-features.h>
 #include <gnu/option-groups.h>
+#include <eglibc/dynconf.h>
 
 #include <shlib-compat.h>
 
@@ -400,8 +401,8 @@ start_thread (void *arg)
 # error "to do"
 #endif
   assert (freesize < pd->stackblock_size);
-  if (freesize > PTHREAD_STACK_MIN)
-    madvise (pd->stackblock, freesize - PTHREAD_STACK_MIN, MADV_DONTNEED);
+  if (freesize > EGLIBC_THREAD_STACK_MIN)
+    madvise (pd->stackblock, freesize - EGLIBC_THREAD_STACK_MIN, MADV_DONTNEED);
 
   /* If the thread is detached free the TCB.  */
   if (IS_DETACHED (pd))

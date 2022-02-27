@@ -23,6 +23,7 @@
 # include <pthread.h>
 # include <signal.h>
 # include <sysdep.h>
+# include <eglibc/dynconf.h>
 
 # define aio_start_notify_thread __aio_start_notify_thread
 # define aio_create_helper_thread __aio_create_helper_thread
@@ -47,7 +48,7 @@ __aio_create_helper_thread (pthread_t *threadp, void *(*tf) (void *),
   pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_DETACHED);
 
   /* The helper thread needs only very little resources.  */
-  (void) pthread_attr_setstacksize (&attr, PTHREAD_STACK_MIN);
+  (void) pthread_attr_setstacksize (&attr, EGLIBC_THREAD_STACK_MIN);
 
   /* Block all signals in the helper thread.  To do this thoroughly we
      temporarily have to block all signals here.  */

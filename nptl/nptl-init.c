@@ -420,10 +420,10 @@ __pthread_initialize_minimal_internal (void)
     /* The system limit is not usable.  Use an architecture-specific
        default.  */
     limit.rlim_cur = ARCH_STACK_DEFAULT_SIZE;
-  else if (limit.rlim_cur < PTHREAD_STACK_MIN)
+  else if (limit.rlim_cur < EGLIBC_THREAD_STACK_MIN)
     /* The system limit is unusably small.
        Use the minimal size acceptable.  */
-    limit.rlim_cur = PTHREAD_STACK_MIN;
+    limit.rlim_cur = EGLIBC_THREAD_STACK_MIN;
 
   /* Make sure it meets the minimum size that allocate_stack
      (allocatestack.c) will demand, which depends on the page size.  */
@@ -476,6 +476,6 @@ __pthread_get_minstack (const pthread_attr_t *attr)
 {
   struct pthread_attr *iattr = (struct pthread_attr *) attr;
 
-  return (GLRO(dl_pagesize) + __static_tls_size + PTHREAD_STACK_MIN
+  return (GLRO(dl_pagesize) + __static_tls_size + EGLIBC_THREAD_STACK_MIN
 	  + iattr->guardsize);
 }

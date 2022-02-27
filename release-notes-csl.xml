@@ -1,0 +1,98 @@
+<!-- This file contains a series of release note fragments processed
+     by gnu-notes.  To add a note to it, use "gnu-notes -a
+     $release_config glibc".  The TARGET line should contain a
+     list of shell glob patterns for target names to which the note is
+     relevant; it may be removed if it is relevant to all targets.
+ -->
+
+      <!-- UUID: fb55a86e-3edb-4db6-84e5-11831df6a5cc -->
+      <!-- TARGET: hexagon-linux* -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: 15564 -->
+      <formalpara>
+        <title>GLIBC support for Hexagon V5</title>
+        <para>
+	  A bug in GLIBC has been fixed that caused the dynamic linker to
+	  incorrectly reject programs and shared libraries compiled for the
+	  Hexagon V5 Architecture.
+        </para>
+      </formalpara>
+
+      <!-- UUID: fbd15154-c07a-4172-961f-669b8eeae7bf -->
+      <!-- TARGET: sh* -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: issue12512 -->
+      <formalpara>
+        <title><function>pthread_mutex_timedlock</function> bug fix</title>
+        <para>
+          GLIBC's <function>pthread_mutex_timedlock</function> function has
+          been fixed to return <code>ETIMEDOUT</code> instead
+          of <code>EINVAL</code> for certain timeout values.
+        </para>
+      </formalpara>
+
+      <!-- UUID: 418a0990-16a3-466b-9a23-703508ed53a7 -->
+      <!-- TARGET: i686* sh* -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: issue12514 -->
+      <formalpara>
+        <title><function>sem_timedwait</function> bug fix</title>
+        <para>
+          GLIBC's <function>sem_timedwait</function> function no longer
+          corrupts the semaphore's internal state in presence of invalid values
+          for the timeout.
+        </para>
+      </formalpara>
+
+      <!-- UUID: 3feddc73-4dd4-42f6-81fa-22d2dc7ae78f -->
+      <!-- TARGET: * -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: CB-802 -->
+      <formalpara>
+        <title>EGLIBC version 2.15</title>
+        <para>
+          &csl_prod; for &csl_target_name; now includes EGLIBC version 2.15
+          library which is based on GNU C Library version 2.15.
+          For more information about changes, see
+          <uri>http://www.eglibc.org/news#eglibc_2_15</uri>.
+        </para>
+      </formalpara>
+
+      <!-- UUID: d3843279-8b64-47fd-8754-14ff19614c4d -->
+      <!-- TARGET: * -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: 10560 -->
+      <formalpara>
+        <title><function>strstr</function> and
+	  <function>strcasestr</function> bug fixes</title>
+        <para>
+          A problem has been fixed that caused GLIBC's
+	  <function>strstr</function> and <function>strcasestr</function>
+	  functions to return wrong results on certain inputs.
+        </para>
+      </formalpara>
+
+      <!-- UUID: e7fb0fb7-809e-41a4-97a8-fcf5c732a302 -->
+      <!-- TARGET: * -->
+      <formalpara>
+        <title>Optimized string and memory functions</title>
+        <para>
+	  The performance of GLIBC's string and memory functions, including
+	  <function>strstr</function> and <function>memmem</function>,
+	  have been significantly improved for large inputs.
+        </para>
+      </formalpara>
+
+      <!-- UUID: 371c8dda-055a-4614-98c1-04f4bba7766a -->
+      <!-- TARGET: * -->
+      <!-- SORT: glibc -->
+      <!-- ISSUE: issue10575 -->
+      <formalpara>
+        <title><function>popen</function> bug fix</title>
+        <para>
+          GLIBC's <function>popen</function> function no longer causes a
+          deadlock situation when invoked from more than one thread.
+        </para>
+      </formalpara>
+
+<!-- Release notes end here.  -->

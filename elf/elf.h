@@ -251,7 +251,9 @@ typedef struct
 #define EM_OPENRISC	92		/* OpenRISC 32-bit embedded processor */
 #define EM_ARC_A5	93		/* ARC Cores Tangent-A5 */
 #define EM_XTENSA	94		/* Tensilica Xtensa Architecture */
-#define EM_NUM		95
+
+#define EM_HEXAGON	164   /* QUALCOMM Hexagon */
+#define EM_NUM		165
 
 /* If it is necessary to assign new unofficial EM_* values, please
    pick large random numbers (0x8523, 0xa7f2, etc.) to minimize the
@@ -2790,6 +2792,86 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_M32R_GOTOFF_LO	64	/* Low 16 bit offset to GOT */
 #define R_M32R_NUM		256	/* Keep this the last entry. */
 
+
+/* Hexagon processor-specific flags for the ELF header e_flags field. */
+#define EF_HEXAGON_MACH_V2     0x1
+#define EF_HEXAGON_MACH_V3     0x2
+#define EF_HEXAGON_MACH_V4     0x3
+#define EF_HEXAGON_MACH_V5     0x4
+
+/* Hexagon relocations */
+  /* V2 */
+#define R_HEXAGON_NONE           0
+#define R_HEXAGON_B22_PCREL      1
+#define R_HEXAGON_B15_PCREL      2
+#define R_HEXAGON_B7_PCREL       3
+#define R_HEXAGON_LO16           4
+#define R_HEXAGON_HI16           5
+#define R_HEXAGON_32             6
+#define R_HEXAGON_16             7
+#define R_HEXAGON_8              8
+#define R_HEXAGON_GPREL16_0      9
+#define R_HEXAGON_GPREL16_1     10
+#define R_HEXAGON_GPREL16_2     11
+#define R_HEXAGON_GPREL16_3     12
+#define R_HEXAGON_HL16          13
+  /* V3 */
+#define R_HEXAGON_B13_PCREL     14
+  /* V4 */
+#define R_HEXAGON_B9_PCREL      15
+  /* V4 (extenders) */
+#define R_HEXAGON_B32_PCREL_X   16
+#define R_HEXAGON_32_6_X        17
+  /* V4 (extended) */
+#define R_HEXAGON_B22_PCREL_X   18
+#define R_HEXAGON_B15_PCREL_X   19
+#define R_HEXAGON_B13_PCREL_X   20
+#define R_HEXAGON_B9_PCREL_X    21
+#define R_HEXAGON_B7_PCREL_X    22
+#define R_HEXAGON_16_X          23
+#define R_HEXAGON_12_X          24
+#define R_HEXAGON_11_X          25
+#define R_HEXAGON_10_X          26
+#define R_HEXAGON_9_X           27
+#define R_HEXAGON_8_X           28
+#define R_HEXAGON_7_X           29
+#define R_HEXAGON_6_X           30
+  /* V2 PIC */
+#define R_HEXAGON_32_PCREL      31
+#define R_HEXAGON_COPY          32
+#define R_HEXAGON_GLOB_DAT      33
+#define R_HEXAGON_JMP_SLOT      34
+#define R_HEXAGON_RELATIVE      35
+#define R_HEXAGON_PLT_B22_PCREL 36
+#define R_HEXAGON_GOTOFF_LO16   37
+#define R_HEXAGON_GOTOFF_HI16   38
+#define R_HEXAGON_GOTOFF_32     39
+#define R_HEXAGON_GOT_LO16      40
+#define R_HEXAGON_GOT_HI16      41
+#define R_HEXAGON_GOT_32        42
+#define R_HEXAGON_GOT_16        43
+  /* V2 TLS */
+#define R_HEXAGON_DTPMOD_32     44
+#define R_HEXAGON_DTPREL_LO16   45
+#define R_HEXAGON_DTPREL_HI16   46
+#define R_HEXAGON_DTPREL_32     47
+#define R_HEXAGON_DTPREL_16     48
+#define R_HEXAGON_GD_PLT_B22_PCREL 49
+#define R_HEXAGON_GD_GOT_LO16   50
+#define R_HEXAGON_GD_GOT_HI16   51
+#define R_HEXAGON_GD_GOT_32     52
+#define R_HEXAGON_GD_GOT_16     53
+#define R_HEXAGON_IE_LO16       54
+#define R_HEXAGON_IE_HI16       55
+#define R_HEXAGON_IE_32         56
+#define R_HEXAGON_IE_GOT_LO16   57
+#define R_HEXAGON_IE_GOT_HI16   58
+#define R_HEXAGON_IE_GOT_32     59
+#define R_HEXAGON_IE_GOT_16     60
+#define R_HEXAGON_TPREL_LO16    61
+#define R_HEXAGON_TPREL_HI16    62
+#define R_HEXAGON_TPREL_32      63
+#define R_HEXAGON_TPREL_16      64
 
 __END_DECLS
 

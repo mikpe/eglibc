@@ -19,12 +19,12 @@
 
 #include <alloca.h>
 #include <limits.h>
-
+#include <eglibc/dynconf.h>
 
 extern int
 __always_inline
 __libc_use_alloca (size_t size)
 {
-  return (__builtin_expect (size <= PTHREAD_STACK_MIN / 4, 1)
+  return (__builtin_expect (size <= EGLIBC_THREAD_STACK_MIN / 4, 1)
 	  || __builtin_expect (__libc_alloca_cutoff (size), 1));
 }

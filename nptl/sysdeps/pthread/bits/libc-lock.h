@@ -248,8 +248,13 @@ extern void __libc_lock_lock_fn (__libc_lock_t *);
 libc_hidden_proto (__libc_lock_lock_fn);
 # endif /* __OPTION_EGLIBC_BIG_MACROS != 1 */
 # if __OPTION_EGLIBC_BIG_MACROS
-# define __libc_lock_lock(NAME) \
-  ({ lll_lock (NAME, LLL_PRIVATE); 0; })
+#  if defined lll_add_lock
+#  define __libc_lock_lock(NAME) \
+   ({ lll_add_lock (NAME, LLL_PRIVATE); 0; })
+#  else
+#  define __libc_lock_lock(NAME) \
+   ({ lll_lock (NAME, LLL_PRIVATE); 0; })
+#  endif
 # else
 #  define __libc_lock_lock(NAME)		\
   __libc_lock_lock_fn (&(NAME))

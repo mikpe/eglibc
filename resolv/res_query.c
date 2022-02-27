@@ -82,6 +82,7 @@ static const char rcsid[] = "$BINDId: res_query.c,v 8.20 2000/02/29 05:39:12 vix
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <eglibc/dynconf.h>
 
 /* Options.  Leave them on. */
 /* #undef DEBUG */
@@ -596,7 +597,8 @@ libresolv_hidden_def (res_nquerydomain)
 const char *
 res_hostalias(const res_state statp, const char *name, char *dst, size_t siz) {
 	char *file, *cp1, *cp2;
-	char buf[BUFSIZ];
+	const size_t bufsiz = EGLIBC_BUFSIZ;
+	char buf[bufsiz];
 	FILE *fp;
 
 	if (statp->options & RES_NOALIASES)
@@ -605,8 +607,8 @@ res_hostalias(const res_state statp, const char *name, char *dst, size_t siz) {
 	if (file == NULL || (fp = fopen(file, "rce")) == NULL)
 		return (NULL);
 	setbuf(fp, NULL);
-	buf[sizeof(buf) - 1] = '\0';
-	while (fgets(buf, sizeof(buf), fp)) {
+	buf[bufsiz - 1] = '\0';
+	while (fgets(buf, bufsiz, fp)) {
 		for (cp1 = buf; *cp1 && !isspace(*cp1); ++cp1)
 			;
 		if (!*cp1)

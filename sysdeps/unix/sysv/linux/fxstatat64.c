@@ -30,6 +30,8 @@
 
 #include <kernel-features.h>
 
+#ifndef XSTAT_IS_XSTAT64
+
 #if __ASSUME_STAT64_SYSCALL == 0
 # include <xstatconv.h>
 #endif
@@ -171,3 +173,5 @@ __fxstatat64 (int vers, int fd, const char *file, struct stat64 *st, int flag)
 #endif
 }
 libc_hidden_def (__fxstatat64)
+
+#endif

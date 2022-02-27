@@ -170,4 +170,8 @@ libc {
     # functions used in other libraries
     __syscall_rt_sigqueueinfo;
   }
+  EGLIBC_DYNAMIC_CONF_1.0 {
+    eglibc_getconf;
+    eglibc_setconf;
+  }
 }

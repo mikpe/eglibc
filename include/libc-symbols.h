@@ -184,16 +184,31 @@
 
 #  else /* ! HAVE_ASM_WEAKEXT_DIRECTIVE */
 
-#   ifdef HAVE_ASM_GLOBAL_DOT_NAME
-#    define weak_alias(original, alias)					\
+#   ifdef HAVE_ASM_SET_DIRECTIVE
+#    ifdef HAVE_ASM_GLOBAL_DOT_NAME
+#     define weak_alias(original, alias)					\
+  .weak C_SYMBOL_NAME (alias) ASM_LINE_SEP				\
+  C_SYMBOL_NAME (alias) = C_SYMBOL_NAME (original) ASM_LINE_SEP		\
+  .weak C_SYMBOL_DOT_NAME (alias) ASM_LINE_SEP				\
+  .set C_SYMBOL_DOT_NAME (alias), C_SYMBOL_DOT_NAME (original)
+#    else
+#     define weak_alias(original, alias)					\
+  .weak C_SYMBOL_NAME (alias) ASM_LINE_SEP				\
+  .set C_SYMBOL_NAME (alias), C_SYMBOL_NAME (original)
+#    endif
+
+#   else
+#    ifdef HAVE_ASM_GLOBAL_DOT_NAME
+#     define weak_alias(original, alias)					\
   .weak C_SYMBOL_NAME (alias) ASM_LINE_SEP				\
   C_SYMBOL_NAME (alias) = C_SYMBOL_NAME (original) ASM_LINE_SEP		\
   .weak C_SYMBOL_DOT_NAME (alias) ASM_LINE_SEP				\
   C_SYMBOL_DOT_NAME (alias) = C_SYMBOL_DOT_NAME (original)
-#   else
-#    define weak_alias(original, alias)					\
+#    else
+#     define weak_alias(original, alias)					\
   .weak C_SYMBOL_NAME (alias) ASM_LINE_SEP				\
   C_SYMBOL_NAME (alias) = C_SYMBOL_NAME (original)
+#    endif
 #   endif
 
 #   define weak_extern(symbol)						\
@@ -647,7 +662,7 @@ for linking")
 # define libc_hidden_proto(name, attrs...) hidden_proto (name, ##attrs)
 # define libc_hidden_def(name) hidden_def (name)
 # define libc_hidden_weak(name) hidden_weak (name)
-# define libc_hidden_nolink(name, version) hidden_nolink (name, libc, version)
+# define libc_hidden_nolink(name, version) hidden_def (name)
 # define libc_hidden_ver(local, name) hidden_ver (local, name)
 # define libc_hidden_data_def(name) hidden_data_def (name)
 # define libc_hidden_data_weak(name) hidden_data_weak (name)

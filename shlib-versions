@@ -30,6 +30,7 @@ s390x-.*-linux.*        DEFAULT			GLIBC_2.2
 cris-.*-linux.*		DEFAULT			GLIBC_2.2
 x86_64-.*-linux.*       DEFAULT			GLIBC_2.2.5
 powerpc64-.*-linux.*	DEFAULT			GLIBC_2.3
+hexagon-.*-linux.*	DEFAULT			GLIBC_2.17
 .*-.*-gnu-gnu.*		DEFAULT			GLIBC_2.2.6
 
 # Configuration		WORDSIZE[32|64]		Alternate configuration

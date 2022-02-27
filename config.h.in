@@ -91,6 +91,9 @@
 /* Define if static NSS modules are wanted.  */
 #undef	DO_STATIC_NSS
 
+/* Define if the compiler supports __builtin_prefetch.  */
+#undef	HAVE_BUILTIN_PREFETCH
+
 /* Define if the compiler supports __builtin_memset.  */
 #undef	HAVE_BUILTIN_MEMSET
 

@@ -1,0 +1,6 @@
+libc {
+  GLIBC_2.11 {
+    # Should probably be published in sysdeps/unix/sysv/linux/Versions.
+    fallocate64;
+  }
+}

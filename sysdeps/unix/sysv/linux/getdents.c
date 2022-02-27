@@ -236,6 +236,7 @@ __GETDENTS (int fd, char *buf, size_t nbytes)
 # endif
     }
 #endif
+#if !defined __NR_getdents64 || !defined __ASSUME_GETDENTS64_SYSCALL
   {
     size_t red_nbytes;
     struct kernel_dirent *skdp, *kdp;
@@ -299,4 +300,5 @@ __GETDENTS (int fd, char *buf, size_t nbytes)
 
     return (char *) dp - buf;
   }
+#endif
 }
